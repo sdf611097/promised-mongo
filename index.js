@@ -22,7 +22,7 @@ function getConnectPromise(url, options) {
 }
 
 function close() {
-    connectPromise.then(db=> db.close);
+    connectPromise.then(db=> db.close());
 }
 
 function findList(collectionName, query) {
