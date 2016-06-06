@@ -6,7 +6,6 @@ describe('simple tests', function() {
     let connect;
     //can connect
     before(function() {
-        
         connect = mongo.getConnectPromise("mongodb://localhost:27017/dev");
     });
     
@@ -28,7 +27,6 @@ describe('simple tests', function() {
         .then(doc => expect(doc.key).to.equal("value"))
         .then(()=> mongo.findOne("unitTest", {key: "notExisted"}))
         .then(doc => {
-            console.log('no ok?', doc);
             expect(doc).to.not.be.ok;
         })
         .then(()=> mongo.findList("unitTest", {key: "value"}))
@@ -38,7 +36,6 @@ describe('simple tests', function() {
         })
         .then(()=> mongo.findList("unitTest", {key: "notExisted"}))
         .then(docs=> {
-            console.log('hi');
             expect(docs.length).to.equal(0);
             done();
         })
@@ -57,11 +54,4 @@ describe('simple tests', function() {
     after(function() {
         mongo.close();
     });
-    /* 
-    
-    it('can find', done=>{
-        
-
-    });
-   */
 });
