@@ -49,6 +49,30 @@ function insertOne(collectionName, data) {
     });
 }
 
+function insertMany(collectionName, data) {
+    return connectPromise
+    .then(db=>{
+        return new Promise((resolve, reject) => {            
+            if(data && data.length>=1){
+                db.collection(collectionName).insertMany(data, function(err, res) {
+                    
+                    if(err) reject(err);
+                    else {
+                        if(res && res.insertedCount==data.length){
+                            resolve(res);
+                        }else{
+                            //this case not been tested, mongo seems can insert different type to same field
+                            reject(new Error("Only "+res.insertedCount+" inserted from " +data.length));
+                        }
+                    }
+                });
+            }else{
+                reject(new Error('input is not an array'));
+            }
+        });
+    });
+}
+
 function findOne(collectionName, query) {
     return connectPromise
     .then(db=>{
@@ -79,6 +103,7 @@ function deleteMany(collectionName, filter, options) {
 exports.getConnectPromise = getConnectPromise;
 exports.close = close;
 exports.insertOne = insertOne;
+exports.insertMany = insertMany;
 exports.findOne = findOne;
 exports.findList = findList;
 exports.deleteMany = deleteMany;

@@ -1,6 +1,6 @@
 {
   "name": "ct-promised-mongo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a es6 promise mongo apis",
   "main": "index.js",
   "scripts": {

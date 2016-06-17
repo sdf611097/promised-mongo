@@ -14,9 +14,19 @@ describe('simple tests', function() {
     });
     
     it('can insert', done=>{
+        let objs = [];
+        objs.push({key:"value1"});
+        objs.push({key:"value2"});
+        objs.push({key:"value3"});
+        //insert one
         mongo.insertOne("unitTest",{key:"value"})
-        .then(res=>{            
+        .then(res=>{
             expect(res.insertedCount).to.equal(1);
+            //insert many
+            return mongo.insertMany("unitTest", objs);
+        }, err => done(err))
+        .then(res=>{
+            expect(res.insertedCount).to.equal(objs.length);
             done();
         })
         .catch(done);
